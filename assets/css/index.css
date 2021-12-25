@@ -1,0 +1,16 @@
+#global-cube-container {
+    perspective : 100px;
+}
+
+.corner-block {
+    width : 100px;
+    height : 100px;
+    transform : rotate(315deg);
+}
+
+.face {
+    width : 100px;
+    height : 100px;
+    background-color : var(--color);
+    transform : rotate3d(var(--rx), var(--ry), var(--rz), 1deg) translateZ(var(--z));
+}
