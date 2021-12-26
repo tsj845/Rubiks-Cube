@@ -4,13 +4,236 @@
         <link rel="stylesheet" type="text/css" href="../assets/css/index.css" />
     </head>
     <body>
-        <div id="global-cube-container">
-            <div id="white-green-orange" class="corner-block">
-                <div class="face" style="--rx:90;--ry:0;--rz:0;--x:0;--y:0;--z:0;--color:lime;"></div>
-                <div class="face" style="--rx:0;--ry:90;--rz:0;--x:0;--y:0;--z:0;--color:white;"></div>
-                <div class="face" style="--rx:0;--ry:0;--rz:90;--x:0;--y:0;--z:0;--color:orange;"></div>
+        <div id="global-cube-container" style="--x:0;--y:0;--z:0;">
+            <div id="white-green-orange" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:0;--z:50">
+                <div class="face front green"></div>
+                <div class="face back black"></div>
+                <div class="face top white"></div>
+                <div class="face bot black"></div>
+                <div class="face right orange"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="white-green" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:0;--z:50">
+                <div class="face front green"></div>
+                <div class="face back black"></div>
+                <div class="face top white"></div>
+                <div class="face bot black"></div>
+                <div class="face right black"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="white-green-red" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:0;--z:50">
+                <div class="face front green"></div>
+                <div class="face back black"></div>
+                <div class="face top white"></div>
+                <div class="face bot black"></div>
+                <div class="face right black"></div>
+                <div class="face left red"></div>
+            </div>
+            <div id="white-red" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:0;--z:-50">
+                <div class="face front black"></div>
+                <div class="face back black"></div>
+                <div class="face top white"></div>
+                <div class="face bot black"></div>
+                <div class="face right black"></div>
+                <div class="face left red"></div>
+            </div>
+            <div id="white-red-blue" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:0;--z:-150">
+                <div class="face front black"></div>
+                <div class="face back blue"></div>
+                <div class="face top white"></div>
+                <div class="face bot black"></div>
+                <div class="face right black"></div>
+                <div class="face left red"></div>
+            </div>
+            <div id="white-blue" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:0;--z:-150">
+                <div class="face front black"></div>
+                <div class="face back blue"></div>
+                <div class="face top white"></div>
+                <div class="face bot black"></div>
+                <div class="face right black"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="white-blue-orange" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:0;--z:-150">
+                <div class="face front black"></div>
+                <div class="face back blue"></div>
+                <div class="face top white"></div>
+                <div class="face bot black"></div>
+                <div class="face right orange"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="white-orange" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:0;--z:-50">
+                <div class="face front black"></div>
+                <div class="face back black"></div>
+                <div class="face top white"></div>
+                <div class="face bot black"></div>
+                <div class="face right orange"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="white" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:0;--z:-50">
+                <div class="face front black"></div>
+                <div class="face back black"></div>
+                <div class="face top white"></div>
+                <div class="face bot black"></div>
+                <div class="face right black"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="green" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:100;--z:50">
+                <div class="face front green"></div>
+                <div class="face back black"></div>
+                <div class="face top black"></div>
+                <div class="face bot black"></div>
+                <div class="face right black"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="green-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:200;--z:50">
+                <div class="face front green"></div>
+                <div class="face back black"></div>
+                <div class="face top black"></div>
+                <div class="face bot yellow"></div>
+                <div class="face right black"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="green-orange" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:100;--z:50">
+                <div class="face front green"></div>
+                <div class="face back black"></div>
+                <div class="face top black"></div>
+                <div class="face bot black"></div>
+                <div class="face right orange"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="green-red" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:100;--z:50">
+                <div class="face front green"></div>
+                <div class="face back black"></div>
+                <div class="face top black"></div>
+                <div class="face bot black"></div>
+                <div class="face right black"></div>
+                <div class="face left red"></div>
+            </div>
+            <div id="green-red-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:200;--z:50">
+                <div class="face front green"></div>
+                <div class="face back black"></div>
+                <div class="face top black"></div>
+                <div class="face bot yellow"></div>
+                <div class="face right black"></div>
+                <div class="face left red"></div>
+            </div>
+            <div id="green-red-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:200;--z:50">
+                <div class="face front green"></div>
+                <div class="face back black"></div>
+                <div class="face top black"></div>
+                <div class="face bot yellow"></div>
+                <div class="face right orange"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="red" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:100;--z:-50">
+                <div class="face front black"></div>
+                <div class="face back black"></div>
+                <div class="face top black"></div>
+                <div class="face bot black"></div>
+                <div class="face right black"></div>
+                <div class="face left red"></div>
+            </div>
+            <div id="red-blue" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:100;--z:-150">
+                <div class="face front black"></div>
+                <div class="face back blue"></div>
+                <div class="face top black"></div>
+                <div class="face bot black"></div>
+                <div class="face right black"></div>
+                <div class="face left red"></div>
+            </div>
+            <div id="red-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:200;--z:-50">
+                <div class="face front black"></div>
+                <div class="face back black"></div>
+                <div class="face top black"></div>
+                <div class="face bot yellow"></div>
+                <div class="face right black"></div>
+                <div class="face left red"></div>
+            </div>
+            <div id="red-blue-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:200;--z:-150">
+                <div class="face front black"></div>
+                <div class="face back blue"></div>
+                <div class="face top black"></div>
+                <div class="face bot yellow"></div>
+                <div class="face right black"></div>
+                <div class="face left red"></div>
+            </div>
+            <div id="orange" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:100;--z:-50">
+                <div class="face front black"></div>
+                <div class="face back black"></div>
+                <div class="face top black"></div>
+                <div class="face bot black"></div>
+                <div class="face right orange"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="orange-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:200;--z:-50">
+                <div class="face front black"></div>
+                <div class="face back black"></div>
+                <div class="face top black"></div>
+                <div class="face bot yellow"></div>
+                <div class="face right orange"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="orange-blue-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:200;--z:-150">
+                <div class="face front black"></div>
+                <div class="face back blue"></div>
+                <div class="face top black"></div>
+                <div class="face bot yellow"></div>
+                <div class="face right orange"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="orange-blue" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:100;--z:-150">
+                <div class="face front black"></div>
+                <div class="face back blue"></div>
+                <div class="face top black"></div>
+                <div class="face bot black"></div>
+                <div class="face right orange"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="blue" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:100;--z:-150">
+                <div class="face front black"></div>
+                <div class="face back blue"></div>
+                <div class="face top black"></div>
+                <div class="face bot black"></div>
+                <div class="face right black"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="blue-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:200;--z:-150">
+                <div class="face front black"></div>
+                <div class="face back blue"></div>
+                <div class="face top black"></div>
+                <div class="face bot yellow"></div>
+                <div class="face right black"></div>
+                <div class="face left black"></div>
+            </div>
+            <div id="yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:200;--z:-50">
+                <div class="face front black"></div>
+                <div class="face back black"></div>
+                <div class="face top black"></div>
+                <div class="face bot yellow"></div>
+                <div class="face right black"></div>
+                <div class="face left black"></div>
             </div>
         </div>
+        <input type="range" min="-180" max="180" value="0" oninput="set_test(0, this.value)"><br>
+        <input type="range" min="-180" max="180" value="0" oninput="set_test(1, this.value)"><br>
+        <input type="range" min="-180" max="180" value="0" oninput="set_test(2, this.value)"><br>
+        <script>
+            const e = document.getElementById("global-cube-container");
+            function set_test (index, value) {
+                let lst = e.style.cssText.split(";");
+                lst[index] = lst[index].split(":")[0] + ":" + value;
+                e.style.cssText = lst.join(";");
+            }
+            for (let i = 0; i < e.children.length; i ++) {
+                const c = e.children[i];
+                let l = c.style.cssText.split(";");
+                const n = Number(l[5].split(":")[1]);
+                console.log(n);
+                l[5] = l[5].split(":")[0] + ":" + (n+150);
+                console.log(l.join(";"));
+                c.style.cssText = l.join(";");
+            }
+        </script>
         <script src="../assets/js/index.js"></script>
     </body>
 </html>
