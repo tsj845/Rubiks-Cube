@@ -4,7 +4,7 @@
         <link rel="stylesheet" type="text/css" href="../assets/css/index.css" />
     </head>
     <body>
-        <div id="global-cube-container" style="--x:0;--y:0;--z:0;">
+        <div id="global-cube-container" style="--x:0;--y:90;--z:0;">
             <div id="white-green-orange" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:0;--z:50">
                 <div class="face front green"></div>
                 <div class="face back black"></div>
@@ -215,7 +215,7 @@
             </div>
         </div>
         <input type="range" min="-180" max="180" value="0" oninput="set_test(0, this.value)"><br>
-        <input type="range" min="-180" max="180" value="0" oninput="set_test(1, this.value)"><br>
+        <input type="range" min="-180" max="180" value="90" oninput="set_test(1, this.value)"><br>
         <input type="range" min="-180" max="180" value="0" oninput="set_test(2, this.value)"><br>
         <script>
             const e = document.getElementById("global-cube-container");
@@ -227,9 +227,13 @@
             for (let i = 0; i < e.children.length; i ++) {
                 const c = e.children[i];
                 let l = c.style.cssText.split(";");
-                const n = Number(l[5].split(":")[1]);
-                console.log(n);
-                l[5] = l[5].split(":")[0] + ":" + (n+150);
+                let n = Number(l[5].split(":")[1]);
+                // console.log(n);
+                l[5] = l[5].split(":")[0] + ":" + (n-50);
+                n = Number(l[4].split(":")[1]);
+                l[4] = l[4].split(":")[0] + ":" + (n-200);
+                n = Number(l[3].split(":")[1]);
+                l[3] = l[3].split(":")[0] + ":" + (n-200);
                 console.log(l.join(";"));
                 c.style.cssText = l.join(";");
             }

@@ -2,11 +2,12 @@
     position : absolute;
     width : 300px;
     height : 300px;
-    perspective : 500px;
+    perspective : 20000px;
     perspective-origin : 50% 50%;
-    left : 400px;
-    top : 400px;
-    /* transform-origin : 50% 50%; */
+    left : 500px;
+    top : 500px;
+    transform-origin : 0px;
+    /* transform-origin : 50% 50% 50%; */
     transform : rotateX(calc(var(--x) * 1deg)) rotateY(calc(var(--y) * 1deg)) rotateZ(calc(var(--z) * 1deg));
     transform-style : preserve-3d;
 }
