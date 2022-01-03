@@ -4,18 +4,18 @@
         <link rel="stylesheet" type="text/css" href="../assets/css/index.css" />
     </head>
     <body>
-        <div id="global-cube-container" style="--x:0;--y:-47;--z:0;"></div>
+        <div id="global-cube-container" style="--x:-38;--y:62;--z:0;"></div>
         <!-- whole cube rotation controls -->
-        <input type="range" min="-180" max="180" value="0" oninput="set_test(0, this.value)"><br>
-        <input type="range" min="-180" max="180" value="-47" oninput="set_test(1, this.value)"><br>
+        <input type="range" min="-180" max="180" value="-38" oninput="set_test(0, this.value)"><br>
+        <input type="range" min="-180" max="180" value="62" oninput="set_test(1, this.value)"><br>
         <input type="range" min="-180" max="180" value="0" oninput="set_test(2, this.value)"><br>
         <!-- test block rotation controls -->
         <!-- x -->
-        <input type="range" min="0" max="360" value="0" oninput="set_test2(0, this.value)"><br>
+        <input type="range" min="0" max="360" value="0" step="90" oninput="set_test2(0, this.value)"><br>
         <!-- y -->
-        <input type="range" min="0" max="360" value="0" oninput="set_test2(1, this.value)"><br>
+        <input type="range" min="0" max="360" value="0" step="90" oninput="set_test2(1, this.value)"><br>
         <!-- z -->
-        <input type="range" min="0" max="360" value="0" oninput="set_test2(2, this.value)"><br>
+        <input type="range" min="0" max="360" value="0" step="90" oninput="set_test2(2, this.value)"><br>
         <!-- test block translation controls -->
         <!-- x -->
         <input type="range" min="0" max="200" value="200" step="100" oninput="set_test2(3, this.value)"><br>
@@ -30,6 +30,14 @@
         <input type="button" value="right" onclick="cube.set_focus(3)"><br>
         <input type="button" value="top" onclick="cube.set_focus(4)">
         <input type="button" value="bot" onclick="cube.set_focus(5)"><br>
+        <input type="button" value="FNT" onclick="gsid=0">
+        <input type="button" value="BCK" onclick="gsid=1"><br>
+        <input type="button" value="LFT" onclick="gsid=2">
+        <input type="button" value="RGT" onclick="gsid=3"><br>
+        <input type="button" value="TOP" onclick="gsid=4">
+        <input type="button" value="BOT" onclick="gsid=5"><br>
+        <input type="button" value="L" onclick="rotcube(0)">
+        <input type="button" value="R" onclick="rotcube(1)"><br>
         <script>
             let t = false;
             const e = document.getElementById("global-cube-container");

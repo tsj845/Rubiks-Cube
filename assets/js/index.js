@@ -61,24 +61,24 @@ const rtftagd = {
 };
 
 const rotd = {
-    "001":{"00":"021","01":"201","20":"021","21":"00-1","40":"00-1","41":"201"},
+    "001":{"00":"021","01":"201","20":"00-1","21":"021","40":"00-1","41":"201"},
     "101":{"00":"011","01":"211","40":"000","41":"200"},
-    "201":{"00":"001","01":"221","30":"221","31":"20-1","40":"001","41":"20-1"},
-    "011":{"00":"121","01":"101","20":"020","21":"000"},
-    "211":{"00":"101","01":"121","30":"220","31":"200"},
-    "021":{"00":"221","01":"001","20":"02-1","21":"001","50":"02-1","51":"221"},
+    "201":{"00":"001","01":"221","30":"20-1","31":"221","40":"001","41":"20-1"},
+    "011":{"00":"121","01":"101","20":"000","21":"020"},
+    "211":{"00":"101","01":"121","30":"200","31":"220"},
+    "021":{"00":"221","01":"001","20":"001","21":"02-1","50":"02-1","51":"221"},
     "121":{"00":"211","01":"011","50":"020","51":"220"},
-    "221":{"00":"201","01":"021","30":"22-1","31":"201","50":"021","51":"22-1"},
-    "00-1":{"10":"02-1","11":"20-1","20":"001","21":"02-1","40":"20-1","41":"001"},
+    "221":{"00":"201","01":"021","30":"201","31":"22-1","50":"021","51":"22-1"},
+    "00-1":{"10":"02-1","11":"20-1","20":"02-1","21":"001","40":"20-1","41":"001"},
     "10-1":{"10":"01-1","11":"21-1","40":"200","41":"000"},
-    "20-1":{"10":"00-1","11":"22-1","30":"201","31":"22-1","40":"201","41":"00-1"},
+    "20-1":{"10":"00-1","11":"22-1","30":"22-1","31":"201","40":"201","41":"00-1"},
     "000":{"20":"01-1","21":"011","40":"10-1","41":"101"},
     "200":{"30":"21-1","31":"211","40":"101","41":"10-1"},
-    "01-1":{"20":"000","21":"020","10":"12-1","11":"10-1"},
-    "21-1":{"30":"200","31":"220","10":"10-1","11":"12-1"},
-    "02-1":{"10":"22-1","11":"00-1","20":"00-1","21":"021","50":"22-1","51":"021"},
-    "12-1":{"10":"21-1","11":"01-1","50":"20","51":"010"},
-    "22-1":{"10":"20-1","11":"02-1","30":"20-1","31":"221","50":"221","51":"02-1"},
+    "01-1":{"20":"020","21":"000","10":"12-1","11":"10-1"},
+    "21-1":{"30":"220","31":"200","10":"10-1","11":"12-1"},
+    "02-1":{"10":"22-1","11":"00-1","20":"021","21":"00-1","50":"22-1","51":"021"},
+    "12-1":{"10":"21-1","11":"01-1","50":"220","51":"020"},
+    "22-1":{"10":"20-1","11":"02-1","30":"221","31":"20-1","50":"221","51":"02-1"},
     "020":{"20":"011","21":"01-1","50":"12-1","51":"121"},
     "220":{"30":"211","31":"21-1","50":"121","51":"12-1"},
     "111":{"00":"111","01":"111"},
@@ -94,10 +94,10 @@ const rotdird = {
     "01":"290",
     "10":"2-90",
     "11":"290",
-    "20":"0-90",
-    "21":"090",
-    "30":"0-90",
-    "31":"090",
+    "20":"090",
+    "21":"0-90",
+    "30":"090",
+    "31":"0-90",
     "40":"1-90",
     "41":"190",
     "50":"1-90",
@@ -119,6 +119,40 @@ function get_rot (el, n) {
 function set_rot (el, n, v) {
     let l = el.style.cssText.split(";");
     l[n] = l[n].split(":")[0] + ":" + (v % 360);
+    el.style.cssText = l.join(";");
+}
+
+function move_faces (el, n, v) {
+    let values = [];
+    let samples = [];
+    if (n === 0) {
+        samples = [0, 4, 1, 5];
+    } else if (n === 1) {
+        samples = [0, 2, 1, 3];
+    } else {
+        samples = [2, 4, 3, 5];
+    }
+    for (let x in samples) {
+        values.push(el.children[samples[x]].className.split(" ")[2]);
+    }
+    // console.log(values);
+    if ((v < 0 && n < 2) || (v > 0 && n > 1) || (v < 0 && n > 0 && n < 2 && false)) {
+        values.push(values.shift());
+    } else {
+        values.unshift(values.pop());
+    }
+    // console.log(n);
+    // console.log(values, samples);
+    for (let x in samples) {
+        el.children[samples[x]].className = el.children[samples[x]].className.split(" ").slice(0, 2).join(" ")+" "+values[x];
+    }
+}
+
+function set_tran (el, v) {
+    let l = el.style.cssText.split(";");
+    l[3] = l[3].split(":")[0] + ":" + Number(v[0])*100;
+    l[4] = l[4].split(":")[0] + ":" + Number(v[1])*100;
+    l[5] = l[5].split(":")[0] + ":" + Number(v.slice(2))*100;
     el.style.cssText = l.join(";");
 }
 
@@ -157,15 +191,20 @@ class Cube {
         const toparse = rotdird[tag];
         const tind = Number(toparse[0]);
         const ram = Number(toparse.slice(1));
+        // console.log(ram, tag, block.fp());
         const e = block.out;
-        let cv = get_rot(e, tind);
-        cv += ram;
-        cv = cv < 0 ? cv + 360 : cv;
-        cv = cv % 360;
-        set_rot(e, tind, cv);
+        // let cv = get_rot(e, tind);
+        // cv += ram;
+        // cv = cv < 0 ? cv + 360 : cv;
+        // cv = cv % 360;
+        // set_rot(e, tind, cv);
+        // console.log(tind);
+        move_faces(e, tind, ram);
         const rd = rotd[block.fp()];
         // console.log(rd, tag, block.fp());
         block.tags = tftagd[rd[tag]];
+        // console.log(rd, tag, block.fp(), ram);
+        set_tran(e, block.fp());
     }
     rotate (side, dir) {
         dir = dir === undefined ? false : dir;
@@ -228,6 +267,15 @@ class Cube {
         // console.log(c);
         return c;
     }
+    focus_block (pos) {
+        for (let i in this.blocks) {
+            if (this.blocks[i].fp() !== pos) {
+                this.blocks[i].hidden = true;
+            } else {
+                this.blocks[i].hidden = false;
+            }
+        }
+    }
     check_whole () {
         console.log("CUBE INTEG CHECK");
         for (let i in tftagd) {
@@ -252,25 +300,15 @@ class Cube {
 
 const cube = new Cube();
 
-// cube.blocks[25]._set_au("b25", false);
+let gsid = 0;
 
-// console.log(cube.blocks[22].tags, cube.blocks[22].fp());
+function rotcube (dir) {
+    cube.rotate(gsid, dir > 0);
+}
 
-// cube.focus_tag("right");
-
-// cube.blocks[12]._set_au("b12", true);
-// cube.blocks[7]._set_au("b7");
-// cube.blocks[8]._set_au("b8");
-
-cube.rotate(0, true);
-// console.log(cube.blocks[22].tags);
-// cube.check_whole();
-// cube.find("20-1");
-// cube.rotate(3, true);
-// console.log(cube.blocks[22].tags);
-// cube.check_whole();
-// cube.blocks[12]._set_au("b12");
-// cube.rotate(5, true);
-// console.log(cube.blocks[22].tags);
-cube.focus_tag("top");
-// cube.focus_tag("left");
+function scramble (n) {
+    n = n === undefined ? 10 : n;
+    for (let i = 0; i < n; i ++) {
+        cube.rotate(Math.floor(Math.random() * 6), Math.floor(Math.random() * 2) > 0);
+    }
+}

@@ -21,9 +21,10 @@
     top : 0px;
     width : 100px;
     height : 100px;
-    transform-origin : 150px 150px;
+    /* transform-origin : 150px 150px; */
     /* transform : translateX(calc(var(--x) * 1px)) translateY(calc(var(--y) * 1px)) translateZ(calc(var(--z) * 1px)) rotateX(calc(var(--rx) * 1deg)) rotateY(calc(var(--ry) * 1deg)) rotateZ(calc(var(--rz) * 1deg)); */
-    transform : rotateX(calc(var(--rx) * 1deg)) rotateY(calc(var(--ry) * 1deg)) rotateZ(calc(var(--rz) * 1deg)) translateX(calc(var(--x) * 1px)) translateY(calc(var(--y) * 1px)) translateZ(calc(var(--z) * 1px));
+    /* transform : rotateX(calc(var(--rx) * 1deg)) rotateY(calc(var(--ry) * 1deg)) rotateZ(calc(var(--rz) * 1deg)) translateX(calc(var(--x) * 1px)) translateY(calc(var(--y) * 1px)) translateZ(calc(var(--z) * 1px)); */
+    transform : translate3d(calc(var(--x) * var(--0, 1) * 1px), calc(var(--y) * var(--o, 1) * 1px), calc(var(--z) * var(--o, 1) * 1px)) rotateX(calc(var(--rx) * 1deg)) rotateY(calc(var(--ry) * 1deg)) rotateZ(calc(var(--rz) * 1deg));
     backface-visibility : visible;
     transform-style : preserve-3d;
     /* transform : rotate(315deg); */
