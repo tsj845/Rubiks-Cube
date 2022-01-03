@@ -1,10 +1,7 @@
 class Block {
     constructor (tags, elem) {
-        this._tags = tags;
+        this.tags = tags;
         this.out = elem;
-        this._au = false;
-        this._auid = null;
-        this._austop = false;
         this._hidden = false;
     }
     get hidden () {
@@ -18,36 +15,13 @@ class Block {
             this.out.className = "block";
         }
     }
-    _set_au (auid, stop) {
-        this._auid = auid;
-        this._au = true;
-        if (stop) {
-            this._austop = true;
-        }
-    }
-    get tags () {
-        return this._tags;
-    }
-    set tags (v) {
-        if (this._au) {
-            console.log("tags au", this._auid, v);
-            if (this._austop) {
-                throw "tags au stop";
-            }
-        }
-        this._tags = v;
-    }
     has (tag) {
         return this.tags.indexOf(tag) > -1;
-    }
-    change (o, n) {
-        this.tags[this.tags.indexOf(o)] = n;
     }
     fp () {
         if (this.tags === undefined) {
             return undefined;
         }
-        // console.log(this.tags.join(""));
         return rtftagd[this.tags.join("")];
     }
 }
@@ -135,14 +109,11 @@ function move_faces (el, n, v) {
     for (let x in samples) {
         values.push(el.children[samples[x]].className.split(" ")[2]);
     }
-    // console.log(values);
     if ((v < 0 && n < 2) || (v > 0 && n > 1) || (v < 0 && n > 0 && n < 2 && false)) {
         values.push(values.shift());
     } else {
         values.unshift(values.pop());
     }
-    // console.log(n);
-    // console.log(values, samples);
     for (let x in samples) {
         el.children[samples[x]].className = el.children[samples[x]].className.split(" ").slice(0, 2).join(" ")+" "+values[x];
     }
@@ -166,19 +137,13 @@ class Cube {
         this.blocks = [];
         for (let i = 0; i < e.children.length; i ++) {
             const c = e.children[i];
-            const d = get_bdata(c);
-            if (i === 12) {
-                console.log(d[0]);
-            }
-            this.blocks.push(new Block(...d));
+            this.blocks.push(new Block(...get_bdata(c)));
         }
     }
     get_tagged (tag) {
-        // console.log(tag);
         let ret = [];
         for (let i in this.blocks) {
             const b = this.blocks[i];
-            // console.log(b.tags, i);
             if (b.has(tag)) {
                 ret.push(b);
             }
@@ -186,24 +151,14 @@ class Cube {
         return ret;
     }
     rot_b (side, dir, block) {
-        // console.log(side, dir);
         const tag = side+dir;
         const toparse = rotdird[tag];
         const tind = Number(toparse[0]);
         const ram = Number(toparse.slice(1));
-        // console.log(ram, tag, block.fp());
         const e = block.out;
-        // let cv = get_rot(e, tind);
-        // cv += ram;
-        // cv = cv < 0 ? cv + 360 : cv;
-        // cv = cv % 360;
-        // set_rot(e, tind, cv);
-        // console.log(tind);
         move_faces(e, tind, ram);
         const rd = rotd[block.fp()];
-        // console.log(rd, tag, block.fp());
         block.tags = tftagd[rd[tag]];
-        // console.log(rd, tag, block.fp(), ram);
         set_tran(e, block.fp());
     }
     rotate (side, dir) {
@@ -213,7 +168,6 @@ class Cube {
         const tag = this.idttd[side];
         let blocks = this.get_tagged(tag);
         for (let i in blocks) {
-            // console.log(i, blocks[i].fp());
             this.rot_b(side, dir, blocks[i]);
         }
     }
@@ -228,11 +182,8 @@ class Cube {
         }
         for (let i = this.blocks.length - 1; i >= 0; i --) {
             const b = this.blocks[i];
-            console.log(i, b.tags);
             if (!b.has(tag)) {
                 this.blocks[i].hidden = true;
-                // this.blocks[i].kill();
-                // this.blocks.splice(i, 1);
             }
         }
     }
@@ -240,19 +191,12 @@ class Cube {
         this.unfocus();
         this.focus_tag(tag);
     }
-    dump () {
-        for (let i in this.blocks) {
-            const b = this.blocks[i];
-            console.log(i, b.tags, b.fp());
-        }
-    }
     find (pos) {
         for (let i in this.blocks) {
             const b = this.blocks[i];
             if (b.fp() === pos) {
                 console.log(pos, i);
                 return true;
-                // break;
             }
         }
         return false;
@@ -264,7 +208,6 @@ class Cube {
                 c ++;
             }
         }
-        // console.log(c);
         return c;
     }
     focus_block (pos) {
@@ -303,11 +246,14 @@ const cube = new Cube();
 let gsid = 0;
 
 function rotcube (dir) {
+    if (gsid % 2 !== 0) {
+        dir = Math.abs(dir-1);
+    }
     cube.rotate(gsid, dir > 0);
 }
 
 function scramble (n) {
-    n = n === undefined ? 10 : n;
+    n = n === undefined ? 15 : n;
     for (let i = 0; i < n; i ++) {
         cube.rotate(Math.floor(Math.random() * 6), Math.floor(Math.random() * 2) > 0);
     }

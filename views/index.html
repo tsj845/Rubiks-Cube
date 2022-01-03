@@ -5,10 +5,7 @@
     </head>
     <body>
         <div id="global-cube-container" style="--x:-38;--y:62;--z:0;"></div>
-        <!-- whole cube rotation controls -->
-        <input type="range" min="-180" max="180" value="-38" oninput="set_test(0, this.value)"><br>
-        <input type="range" min="-180" max="180" value="62" oninput="set_test(1, this.value)"><br>
-        <!-- <input type="range" min="-180" max="180" value="0" oninput="set_test(2, this.value)"><br> -->
+        <p>filter which face is shown</p>
         <input type="button" value="none" onclick="cube.unfocus()"><br>
         <input type="button" value="front" onclick="cube.set_focus(0)">
         <input type="button" value="back" onclick="cube.set_focus(1)"><br>
@@ -16,14 +13,19 @@
         <input type="button" value="right" onclick="cube.set_focus(3)"><br>
         <input type="button" value="top" onclick="cube.set_focus(4)">
         <input type="button" value="bot" onclick="cube.set_focus(5)"><br>
+        <p>select face</p>
         <input type="button" value="FNT" onclick="gsid=0">
         <input type="button" value="BCK" onclick="gsid=1"><br>
         <input type="button" value="LFT" onclick="gsid=2">
         <input type="button" value="RGT" onclick="gsid=3"><br>
         <input type="button" value="TOP" onclick="gsid=4">
         <input type="button" value="BOT" onclick="gsid=5"><br>
+        <p>rotate face</p>
         <input type="button" value="L" onclick="rotcube(0)">
         <input type="button" value="R" onclick="rotcube(1)"><br>
+        <p>misc</p>
+        <input type="button" value="scramble" onclick="scramble()"><br>
+        <input type="button" value="reset" onclick="cube.regen()"><br>
         <script>
             let t = false;
             const e = document.getElementById("global-cube-container");
@@ -50,235 +52,71 @@
                 lst[index] = lst[index].split(":")[0] + ":" + value;
                 e.style.cssText = lst.join(";");
             }
-            function set_test2 (index, value) {
-                let lst = e.children[0].style.cssText.split(";");
-                lst[index] = lst[index].split(":")[0] + ":" + value;
-                e.children[0].style.cssText = lst.join(";");
-            }
-            for (let i = 0; i < e.children.length; i ++) {
-                const c = e.children[i];
-                let l = c.style.cssText.split(";");
-                let n = Number(l[5].split(":")[1]);
-                // console.log(n);
-                l[5] = l[5].split(":")[0] + ":" + (n-50);
-                n = Number(l[4].split(":")[1]);
-                l[4] = l[4].split(":")[0] + ":" + (n-200);
-                n = Number(l[3].split(":")[1]);
-                l[3] = l[3].split(":")[0] + ":" + (n-200);
-                // console.log(l.join(";"));
-                c.style.cssText = l.join(";");
+            function get_test (index) {
+                let lst = e.style.cssText.split(";");
+                return Number(lst[index].split(":")[1]);
             }
         </script>
         <script src="../assets/js/setup.js"></script>
         <script src="../assets/js/index.js"></script>
+        <script>
+            let ignore = true;
+            let mousedown = false;
+            let last = [null, null];
+            e.addEventListener("mousedown", (e) => {
+                last = [e.clientX, e.clientY];
+                mousedown = true;
+            });
+            document.addEventListener("mouseup", (e) => {
+                last = [null, null];
+                mousedown = false;
+            });
+            e.addEventListener("mouseenter", (e) => {
+                last = [e.clientX, e.clientY];
+                ignore = false;
+            });
+            e.addEventListener("mouseleave", (e) => {
+                ignore = true;
+            });
+            e.addEventListener("mousemove", (e) => {
+                if (last[0] === null || !mousedown || ignore) {
+                    return;
+                }
+                set_test(0, get_test(0)+last[1]-e.clientY);
+                set_test(1, get_test(1)+e.clientX-last[0]);
+                last = [e.clientX, e.clientY];
+            });
+            document.addEventListener("keydown", (e) => {
+                const key = e.code.toString();
+                switch (key) {
+                    case "ArrowLeft":
+                        rotcube(0);
+                        break;
+                    case "ArrowRight":
+                        rotcube(1);
+                        break;
+                    case "Digit1":
+                        gsid = 0;
+                        break;
+                    case "Digit2":
+                        gsid = 1;
+                        break;
+                    case "Digit3":
+                        gsid = 2;
+                        break;
+                    case "Digit4":
+                        gsid = 3;
+                        break;
+                    case "Digit5":
+                        gsid = 4;
+                        break;
+                    case "Digit6":
+                        gsid = 5;
+                        break;
+                    default:
+                        break;
+                }
+            });
+        </script>
     </body>
 </html>
-
-<!-- <div id="white-green-orange" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:0;--z:50">
-    <div class="face front green"></div>
-    <div class="face back black"></div>
-    <div class="face top white"></div>
-    <div class="face bot black"></div>
-    <div class="face right orange"></div>
-    <div class="face left black"></div>
-</div>
-<div id="white-green" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:0;--z:50">
-    <div class="face front green"></div>
-    <div class="face back black"></div>
-    <div class="face top white"></div>
-    <div class="face bot black"></div>
-    <div class="face right black"></div>
-    <div class="face left black"></div>
-</div>
-<div id="white-green-red" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:0;--z:50">
-    <div class="face front green"></div>
-    <div class="face back black"></div>
-    <div class="face top white"></div>
-    <div class="face bot black"></div>
-    <div class="face right black"></div>
-    <div class="face left red"></div>
-</div>
-<div id="white-red" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:0;--z:-50">
-    <div class="face front black"></div>
-    <div class="face back black"></div>
-    <div class="face top white"></div>
-    <div class="face bot black"></div>
-    <div class="face right black"></div>
-    <div class="face left red"></div>
-</div>
-<div id="white-red-blue" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:0;--z:-150">
-    <div class="face front black"></div>
-    <div class="face back blue"></div>
-    <div class="face top white"></div>
-    <div class="face bot black"></div>
-    <div class="face right black"></div>
-    <div class="face left red"></div>
-</div>
-<div id="white-blue" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:0;--z:-150">
-    <div class="face front black"></div>
-    <div class="face back blue"></div>
-    <div class="face top white"></div>
-    <div class="face bot black"></div>
-    <div class="face right black"></div>
-    <div class="face left black"></div>
-</div>
-<div id="white-blue-orange" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:0;--z:-150">
-    <div class="face front black"></div>
-    <div class="face back blue"></div>
-    <div class="face top white"></div>
-    <div class="face bot black"></div>
-    <div class="face right orange"></div>
-    <div class="face left black"></div>
-</div>
-<div id="white-orange" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:0;--z:-50">
-    <div class="face front black"></div>
-    <div class="face back black"></div>
-    <div class="face top white"></div>
-    <div class="face bot black"></div>
-    <div class="face right orange"></div>
-    <div class="face left black"></div>
-</div>
-<div id="white" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:0;--z:-50">
-    <div class="face front black"></div>
-    <div class="face back black"></div>
-    <div class="face top white"></div>
-    <div class="face bot black"></div>
-    <div class="face right black"></div>
-    <div class="face left black"></div>
-</div>
-<div id="green" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:100;--z:50">
-    <div class="face front green"></div>
-    <div class="face back black"></div>
-    <div class="face top black"></div>
-    <div class="face bot black"></div>
-    <div class="face right black"></div>
-    <div class="face left black"></div>
-</div>
-<div id="green-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:200;--z:50">
-    <div class="face front green"></div>
-    <div class="face back black"></div>
-    <div class="face top black"></div>
-    <div class="face bot yellow"></div>
-    <div class="face right black"></div>
-    <div class="face left black"></div>
-</div>
-<div id="green-orange" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:100;--z:50">
-    <div class="face front green"></div>
-    <div class="face back black"></div>
-    <div class="face top black"></div>
-    <div class="face bot black"></div>
-    <div class="face right orange"></div>
-    <div class="face left black"></div>
-</div>
-<div id="green-red" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:100;--z:50">
-    <div class="face front green"></div>
-    <div class="face back black"></div>
-    <div class="face top black"></div>
-    <div class="face bot black"></div>
-    <div class="face right black"></div>
-    <div class="face left red"></div>
-</div>
-<div id="green-red-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:200;--z:50">
-    <div class="face front green"></div>
-    <div class="face back black"></div>
-    <div class="face top black"></div>
-    <div class="face bot yellow"></div>
-    <div class="face right black"></div>
-    <div class="face left red"></div>
-</div>
-<div id="green-red-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:200;--z:50">
-    <div class="face front green"></div>
-    <div class="face back black"></div>
-    <div class="face top black"></div>
-    <div class="face bot yellow"></div>
-    <div class="face right orange"></div>
-    <div class="face left black"></div>
-</div>
-<div id="red" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:100;--z:-50">
-    <div class="face front black"></div>
-    <div class="face back black"></div>
-    <div class="face top black"></div>
-    <div class="face bot black"></div>
-    <div class="face right black"></div>
-    <div class="face left red"></div>
-</div>
-<div id="red-blue" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:100;--z:-150">
-    <div class="face front black"></div>
-    <div class="face back blue"></div>
-    <div class="face top black"></div>
-    <div class="face bot black"></div>
-    <div class="face right black"></div>
-    <div class="face left red"></div>
-</div>
-<div id="red-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:200;--z:-50">
-    <div class="face front black"></div>
-    <div class="face back black"></div>
-    <div class="face top black"></div>
-    <div class="face bot yellow"></div>
-    <div class="face right black"></div>
-    <div class="face left red"></div>
-</div>
-<div id="red-blue-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:0;--y:200;--z:-150">
-    <div class="face front black"></div>
-    <div class="face back blue"></div>
-    <div class="face top black"></div>
-    <div class="face bot yellow"></div>
-    <div class="face right black"></div>
-    <div class="face left red"></div>
-</div>
-<div id="orange" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:100;--z:-50">
-    <div class="face front black"></div>
-    <div class="face back black"></div>
-    <div class="face top black"></div>
-    <div class="face bot black"></div>
-    <div class="face right orange"></div>
-    <div class="face left black"></div>
-</div>
-<div id="orange-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:200;--z:-50">
-    <div class="face front black"></div>
-    <div class="face back black"></div>
-    <div class="face top black"></div>
-    <div class="face bot yellow"></div>
-    <div class="face right orange"></div>
-    <div class="face left black"></div>
-</div>
-<div id="orange-blue-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:200;--z:-150">
-    <div class="face front black"></div>
-    <div class="face back blue"></div>
-    <div class="face top black"></div>
-    <div class="face bot yellow"></div>
-    <div class="face right orange"></div>
-    <div class="face left black"></div>
-</div>
-<div id="orange-blue" class="block" style="--rx:0;--ry:0;--rz:0;--x:200;--y:100;--z:-150">
-    <div class="face front black"></div>
-    <div class="face back blue"></div>
-    <div class="face top black"></div>
-    <div class="face bot black"></div>
-    <div class="face right orange"></div>
-    <div class="face left black"></div>
-</div>
-<div id="blue" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:100;--z:-150">
-    <div class="face front black"></div>
-    <div class="face back blue"></div>
-    <div class="face top black"></div>
-    <div class="face bot black"></div>
-    <div class="face right black"></div>
-    <div class="face left black"></div>
-</div>
-<div id="blue-yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:200;--z:-150">
-    <div class="face front black"></div>
-    <div class="face back blue"></div>
-    <div class="face top black"></div>
-    <div class="face bot yellow"></div>
-    <div class="face right black"></div>
-    <div class="face left black"></div>
-</div>
-<div id="yellow" class="block" style="--rx:0;--ry:0;--rz:0;--x:100;--y:200;--z:-50">
-    <div class="face front black"></div>
-    <div class="face back black"></div>
-    <div class="face top black"></div>
-    <div class="face bot yellow"></div>
-    <div class="face right black"></div>
-    <div class="face left black"></div>
-</div> -->
