@@ -51,3 +51,19 @@
 .red {background-color : red;}
 .orange {background-color : orange;}
 .yellow {background-color : yellow;}
+
+.backing {
+    position : absolute;
+    left : 0px;
+    top : 0px;
+    width : 100vw;
+    height : 100vh;
+    background : #00000088;
+}
+
+.menu-content {
+    width : fit-content;
+    height : fit-content;
+    border : solid black;
+    background : gray;
+}

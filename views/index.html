@@ -26,6 +26,18 @@
         <p>misc</p>
         <input type="button" value="scramble" onclick="scramble()"><br>
         <input type="button" value="reset" onclick="cube.regen()"><br>
+        <input type="button" value="control scheme" onclick="show_controls()"><br>
+        <div id="menu-back" class="backing" hidden>
+            <div id="menu" class="menu-content">
+                <div id="keybinds-back" class="backing" hidden>
+                    <div id="keybinds" class="menu-content">
+                        <input type="button" value="back" onclick="hide_keybinds()">
+                    </div>
+                </div>
+                <input type="button" value="keybinds" onclick="show_keybinds()"><br><br>
+                <input type="button" value="close" onclick="hide_controls()">
+            </div>
+        </div>
         <script>
             let t = false;
             const e = document.getElementById("global-cube-container");
@@ -55,6 +67,18 @@
             function get_test (index) {
                 let lst = e.style.cssText.split(";");
                 return Number(lst[index].split(":")[1]);
+            }
+            function show_controls () {
+                controls_back.hidden = false;
+            }
+            function hide_controls () {
+                controls_back.hidden = true;
+            }
+            function show_keybinds () {
+                keybinds_back.hidden = false;
+            }
+            function hide_keybinds () {
+                keybinds_back.hidden = true;
             }
         </script>
         <script src="../assets/js/setup.js"></script>
